@@ -1,0 +1,11 @@
+- id: update-mypy-hook
+  name: update dependencies of mypy pre-commit hook
+  description: "Update the additional dependencies of mypy pre-commit hook with uv.lock"
+  entry: update-mypy-hook
+  language: python
+  args: [ ]
+  fail_fast: true
+  files: ^(pyproject\.toml|uv\.lock)$
+  pass_filenames: false
+  stages:
+  - pre-commit
