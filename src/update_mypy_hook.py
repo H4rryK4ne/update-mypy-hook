@@ -1,9 +1,3 @@
-# /// script
-# dependencies = [
-#   "pyyaml",
-#   "typing-extensions; python_version < '3.11'"
-# ]
-# ///
 import shutil
 import subprocess
 import sys
