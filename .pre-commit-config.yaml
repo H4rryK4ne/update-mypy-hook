@@ -4,10 +4,10 @@ default_install_hook_types:
 - post-merge
 - post-rewrite
 repos:
-#- repo: .
-#  rev: 0.1.0
-#  hooks:
-#  - id: update-mypy-hook
+- repo: .
+  rev: 7937677bf555b7c889dee184908425e872719cc9
+  hooks:
+  - id: update-mypy-hook
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v5.0.0
   hooks:
@@ -38,16 +38,17 @@ repos:
     - --config-file=pyproject.toml
     additional_dependencies:
     - pyyaml==6.0.2
-    - types-pyyaml==6.0.12.20250402
+    - types-pyyaml==6.0.12.20250516
+    - uv==0.7.5
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.11.9
+  rev: v0.11.10
   hooks:
   - id: ruff
     args:
     - --fix
   - id: ruff-format
 - repo: https://github.com/astral-sh/uv-pre-commit
-  rev: 0.7.3
+  rev: 0.7.5
   hooks:
   - id: uv-lock
   - id: uv-sync
