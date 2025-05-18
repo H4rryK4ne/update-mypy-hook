@@ -19,11 +19,12 @@ build-backend = "setuptools.build_meta"
 [tool.ruff]
 line-length = 120
 lint.select = [
-    # "E", # pycodestyle errors
-    # "W", # pycodestyle warnings
+    "A", # flake8-builtin errors
+    "E", # pycodestyle errors
+    "W", # pycodestyle warnings
     "F", # pyflakes
     "I", # isort
-    # "C", # flake8-comprehensions
+    "C", # flake8-comprehensions
     # "B", # flake8-bugbear
 ]
 
