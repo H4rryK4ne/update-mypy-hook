@@ -4,10 +4,12 @@ default_install_hook_types:
 - post-merge
 - post-rewrite
 repos:
-#- repo: .
-#  rev: 8e5e436477dd9018dc5ec07d1595f0f247299a67
-#  hooks:
-#  - id: update-mypy-hook
+- repo: .
+  rev: 2312edf37f9d86e59bdf77f4472225d4552acc35
+  hooks:
+  - id: update-mypy-hook
+    args:
+    - -x=uv
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v5.0.0
   hooks:
