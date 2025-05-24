@@ -1,3 +1,4 @@
+import re
 import subprocess
 import sys
 from argparse import ArgumentParser, BooleanOptionalAction
@@ -36,6 +37,8 @@ DEFAULT_GROUPS: Final = ["mypy"]
 DEFAULT_PYPROJECT_PATH: Final = Path("pyproject.toml")
 DEFAULT_EXCLUDED_PACKAGES: Final = ["mypy", "mypy-extensions", "tomli", "typing-extensions"]
 
+RE_UV_GROUP_NAME: Final = re.compile(r"^[a-z0-9](?:[a-z0-9._-]*[a-z0-9])?$", re.IGNORECASE)
+
 
 @dataclass
 class YamlConfig:
@@ -43,6 +46,12 @@ class YamlConfig:
     indent: Final[int] = DEFAULT_YAML_INDENT
     default_flow_style: Final[bool] = DEFAULT_YAML_FLOW_STYLE
     sort_keys: Final[bool] = DEFAULT_YAML_SORT_KEYS
+
+
+def validate_group(group: str) -> str:
+    if not RE_UV_GROUP_NAME.fullmatch(group):
+        raise ValueError
+    return group
 
 
 def get_dependencies(
@@ -107,6 +116,7 @@ def main() -> None:
     parser.add_argument(
         "-g",
         "--group",
+        type=validate_group,
         action="append",
         help=f"Dependency group to include. Can be used multiple times (default: {', '.join(DEFAULT_GROUPS)})",
         dest="groups",
