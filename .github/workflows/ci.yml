@@ -79,12 +79,9 @@ jobs:
       with:
         python-version-file: ".python-version"
 
-    - uses: benjlevesque/short-sha@v3.0
-      id: short-sha
-
     - name: Set dev version if not master
       if: github.ref_name != 'master'
-      run: uv version $(uv version --short).dev${{ github.run_id }}+${{ env.SHA }}
+      run: uv version $(uv version --short).dev${{ github.run_id }}
 
     - name: Build a binary wheel and a source tarball
       run: uv build
