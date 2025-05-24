@@ -89,9 +89,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: python-package-distributions
-        path: |
-          dist/*.whl
-          dist/*.tar.gz
+        path: dist/
 
   publish-to-pypi:
     name: >-
