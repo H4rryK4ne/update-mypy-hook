@@ -61,6 +61,14 @@ def validate_package(package: str) -> str:
     return package
 
 
+def valid_file(path_str: str) -> Path:
+    path = Path(path_str)
+    if not path.is_file():
+        raise ArgumentTypeError(f"{path_str} is not a file")
+
+    return path
+
+
 def get_dependencies(
     groups: Sequence[str], excluded_packages: Sequence[str], pyproject_toml_path: Optional[Path] = None
 ) -> list[str]:
@@ -132,14 +140,14 @@ def main() -> None:
     parser.add_argument(
         "-c",
         "--pre-commit-config-path",
+        type=valid_file,
         default=DEFAULT_CONFIG_PATH,
-        type=Path,
         help=f"Path to .pre-commit-config.yaml (default: {DEFAULT_CONFIG_PATH})",
     )
     parser.add_argument(
         "-p",
         "--pyproject-path",
-        type=Path,
+        type=valid_file,
         help="Path to pyproject.toml. Only needed if not in project root.",
     )
     parser.add_argument(
