@@ -1,7 +1,7 @@
 import re
 import subprocess
 import sys
-from argparse import ArgumentParser, BooleanOptionalAction
+from argparse import ArgumentParser, ArgumentTypeError, BooleanOptionalAction
 from collections.abc import Sequence
 from dataclasses import dataclass
 from pathlib import Path
@@ -38,6 +38,7 @@ DEFAULT_PYPROJECT_PATH: Final = Path("pyproject.toml")
 DEFAULT_EXCLUDED_PACKAGES: Final = ["mypy", "mypy-extensions", "tomli", "typing-extensions"]
 
 RE_UV_GROUP_NAME: Final = re.compile(r"^[a-z0-9](?:[a-z0-9._-]*[a-z0-9])?$", re.IGNORECASE)
+RE_PACKAGE_NAME: Final = re.compile(r"^[a-zA-Z0-9]+([-_.]?[a-zA-Z0-9]+)*$")
 
 
 @dataclass
@@ -50,8 +51,14 @@ class YamlConfig:
 
 def validate_group(group: str) -> str:
     if not RE_UV_GROUP_NAME.fullmatch(group):
-        raise ValueError
+        raise ArgumentTypeError(f"{group} is not a valid UV group name")
     return group
+
+
+def validate_package(package: str) -> str:
+    if not RE_PACKAGE_NAME.fullmatch(package):
+        raise ArgumentTypeError(f"{package} is not a package name")
+    return package
 
 
 def get_dependencies(
@@ -137,7 +144,7 @@ def main() -> None:
     )
     parser.add_argument(
         "--excluded-package",
-        type=str,
+        type=validate_package,
         action="append",
         help=f"Package excluded in the additional_dependencies. Can be used multiple times "
         f"(default: {', '.join(DEFAULT_EXCLUDED_PACKAGES)})",
@@ -147,7 +154,7 @@ def main() -> None:
     parser.add_argument(
         "-x",
         "--extra-excluded-package",
-        type=str,
+        type=validate_package,
         action="append",
         help="Additional package excluded from additional_dependencies. Extends the --excluded-package option. "
         "Can be used multiple times.",
