@@ -1,4 +1,3 @@
-import shutil
 import subprocess
 import sys
 from argparse import ArgumentParser, BooleanOptionalAction
@@ -148,17 +147,6 @@ def main() -> None:
     args = parser.parse_args()
 
     groups = args.group or DEFAULT_GROUPS
-
-    if shutil.which("uv") is None:
-        print("uv not found", file=sys.stderr)
-        print("Please install uv and try again.", file=sys.stderr)
-        sys.exit(1)
-
-    result = subprocess.run(["uv", "--version"], capture_output=True, text=True, check=True)
-    major, minor, patch = tuple(map(int, result.stdout.split()[1].split(".")))
-    if major == 0 and minor < 6:
-        print("version of uv needs to >= 0.6.0", file=sys.stderr)
-        sys.exit(1)
 
     yaml_config = YamlConfig(
         width=args.yaml_width,
