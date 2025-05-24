@@ -59,10 +59,10 @@ def get_dependencies(
         "--no-default-groups",
         "--no-annotate",
     ]
-    parameter.extend([item for group in groups for item in ("--group", group)])
-    parameter.extend([item for package in excluded_packages for item in ("--no-emit-package", package)])
+    parameter.extend([f"--group={group}" for group in groups])
+    parameter.extend([f"--no-emit-package={package}" for package in excluded_packages])
     if pyproject_toml_path:
-        parameter.extend(["--config-file", str(pyproject_toml_path)])
+        parameter.append(f"--config-file={pyproject_toml_path}")
 
     result = subprocess.run(parameter, capture_output=True, text=True)
     if result.returncode != 0:
