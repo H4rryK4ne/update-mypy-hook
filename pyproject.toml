@@ -15,6 +15,9 @@ authors = [
     { "name" = "HarryKane", "email" = "harrykane@gmx.de" }
 ]
 
+[project.urls]
+Source = "https://github.com/H4rryK4ne/update-mypy-hook"
+
 [project.scripts]
 update-mypy-hook = "update_mypy_hook:main"
 
