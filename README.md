@@ -1,6 +1,6 @@
 # Update mypy pre-commit hook
 
-This script uses [`uv`](docs.astral.sh/uv) to update the `additional_dependencies` of the
+This script uses [`uv`](https://docs.astral.sh/uv) to update the `additional_dependencies` of the
 [mypy pre-commit hook](https://github.com/pre-commit/mirrors-mypy).
 
 > **⚠️ WARNING ⚠️**
