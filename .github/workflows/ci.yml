@@ -125,12 +125,15 @@ jobs:
     - create-release
     runs-on: ubuntu-latest
     environment:
-      name: pypi
-      url: https://pypi.org/p/update-mypy-hook  # Replace <package-name> with your PyPI project name
+      name: testpypi
+      url: https://test.pypi.org/p/update-mypy-hook  # Replace <package-name> with your PyPI project name
     permissions:
       id-token: write  # IMPORTANT: mandatory for trusted publishing
 
     steps:
+    - uses: actions/checkout@v4
+      with:
+        persist-credentials: false
     - name: Download all the dists
       uses: actions/download-artifact@v4
       with:
