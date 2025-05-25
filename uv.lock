@@ -267,6 +267,10 @@ source = { editable = "." }
 dependencies = [
     { name = "pyyaml" },
     { name = "typing-extensions", marker = "python_full_version < '3.11'" },
+]
+
+[package.optional-dependencies]
+uv = [
     { name = "uv" },
 ]
 
@@ -284,8 +288,9 @@ mypy = [
 requires-dist = [
     { name = "pyyaml", specifier = ">=6.0.2" },
     { name = "typing-extensions", marker = "python_full_version < '3.11'" },
-    { name = "uv", specifier = ">=0.7.0" },
+    { name = "uv", marker = "extra == 'uv'", specifier = ">=0.7.0" },
 ]
+provides-extras = ["uv"]
 
 [package.metadata.requires-dev]
 dev = [

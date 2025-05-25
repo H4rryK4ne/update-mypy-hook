@@ -7,7 +7,6 @@ requires-python = ">=3.9"
 dependencies = [
     "pyyaml>=6.0.2",
     "typing-extensions; python_version < '3.11'",
-    "uv>=0.7.0",
 ]
 license = "GPL-3.0-or-later"
 license-files = ["license.txt"]
@@ -26,6 +25,9 @@ classifiers = [
 [project.urls]
 Source = "https://github.com/H4rryK4ne/update-mypy-hook"
 Changes = "https://github.com/H4rryK4ne/update-mypy-hook/blob/develop/CHANGELOG.md"
+
+[project.optional-dependencies]
+uv = ["uv>=0.7.0"]
 
 [project.scripts]
 update-mypy-hook = "update_mypy_hook:main"

@@ -14,6 +14,22 @@ The group(s) may only contain the direct dependencies. Transitive dependencies a
 
 The dependency group(s) can be overwritten by `-g/--group` option.
 
+## Installation
+
+If you have installed `uv` on your machine or is already part of your dependencies you can run
+```shell
+pip install update-mypy-hook
+```
+or with uv
+```shell
+uv add update-mypy-hook --group dev
+```
+
+If `uv` is not part of your setup, use the extra
+```shell
+pip install update-mypy-hook[uv]
+```
+
 ## Using update-mypy-hook
 
 Run in your python project root folder
@@ -29,6 +45,8 @@ Add this to your `.pre-commit-config.yaml`
   rev: 0.1.0
   hooks:
   - id: update-dependency-mypy-hook
+    additional_dependencies:
+    - uv # if uv is not installed on every developer's system
     args:
     - --extra-excluded-package=some_package
     - --extra-excluded-package=some_other_package
