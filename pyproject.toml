@@ -25,6 +25,7 @@ classifiers = [
 
 [project.urls]
 Source = "https://github.com/H4rryK4ne/update-mypy-hook"
+Changes = "https://github.com/H4rryK4ne/update-mypy-hook/blob/develop/CHANGELOG.md"
 
 [project.scripts]
 update-mypy-hook = "update_mypy_hook:main"
