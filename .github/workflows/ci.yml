@@ -98,6 +98,8 @@ jobs:
     if: github.ref_name == 'develop'
     needs:
     - build
+    permissions:
+      contents: write
     steps:
     - name: Download all the dists
       uses: actions/download-artifact@v4
