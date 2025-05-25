@@ -125,15 +125,12 @@ jobs:
     - create-release
     runs-on: ubuntu-latest
     environment:
-      name: testpypi
-      url: https://test.pypi.org/p/update-mypy-hook  # Replace <package-name> with your PyPI project name
+      name: pypi
+      url: https://pypi.org/p/update-mypy-hook  # Replace <package-name> with your PyPI project name
     permissions:
       id-token: write  # IMPORTANT: mandatory for trusted publishing
 
     steps:
-    - uses: actions/checkout@v4
-      with:
-        persist-credentials: false
     - name: Download all the dists
       uses: actions/download-artifact@v4
       with:
@@ -144,7 +141,7 @@ jobs:
       with:
         version: "${{ env.UV_VERSION }}"
     - name: Publish distribution 📦 to PyPI
-      run: uv publish --index testpypi
+      run: uv publish
 
 #  publish-to-testpypi:
 #    name: Publish Python 🐍 distribution 📦 to TestPyPI
