@@ -9,6 +9,11 @@ dependencies = [
     "typing-extensions; python_version < '3.11'",
     "uv>=0.7.0",
 ]
+license = "GPL-3.0-or-later"
+license-files = ["license.txt"]
+authors = [
+    { "name" = "HarryKane", "email" = "harrykane@gmx.de" }
+]
 
 [project.scripts]
 update-mypy-hook = "update_mypy_hook:main"
