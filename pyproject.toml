@@ -14,6 +14,14 @@ license-files = ["license.txt"]
 authors = [
     { "name" = "HarryKane", "email" = "harrykane@gmx.de" }
 ]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Software Development",
+    "Typing :: Typed",
+]
 
 [project.urls]
 Source = "https://github.com/H4rryK4ne/update-mypy-hook"
