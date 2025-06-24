@@ -5,7 +5,7 @@ default_install_hook_types:
 - post-rewrite
 repos:
 - repo: .
-  rev: 3837a76f1db4afb58ac41cc1c7b77fade582eb1a
+  rev: v0.1.0
   hooks:
   - id: update-mypy-hook
 - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -30,24 +30,25 @@ repos:
   - id: check-added-large-files
   - id: check-merge-conflict
 - repo: https://github.com/pre-commit/mirrors-mypy
-  rev: v1.15.0
+  rev: v1.16.1
   hooks:
   - id: mypy
     verbose: true
     args:
     - --config-file=pyproject.toml
     additional_dependencies:
+    - pathspec==0.12.1
     - pyyaml==6.0.2
     - types-pyyaml==6.0.12.20250516
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.11.11
+  rev: v0.12.0
   hooks:
   - id: ruff
     args:
     - --fix
   - id: ruff-format
 - repo: https://github.com/astral-sh/uv-pre-commit
-  rev: 0.7.8
+  rev: 0.7.14
   hooks:
   - id: uv-lock
   - id: uv-sync

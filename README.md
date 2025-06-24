@@ -54,12 +54,13 @@ Add this to your `.pre-commit-config.yaml`
 
 ### Options:
 ```text
+  -h, --help            show this help message and exit
   -g GROUP, --group GROUP
                         Dependency group to include. Can be used multiple times (default: mypy)
   -c PRE_COMMIT_CONFIG_PATH, --pre-commit-config-path PRE_COMMIT_CONFIG_PATH
                         Path to .pre-commit-config.yaml (default: .pre-commit-config.yaml)
-  -p PYPROJECT_PATH, --pyproject-path PYPROJECT_PATH
-                        Path to pyproject.toml. Only needed if not in project root.
+  -p PROJECT_PATH, --project-path PROJECT_PATH
+                        Path to python project. Only needed if not in project root.
   --excluded-package PACKAGE
                         Package excluded in the additional_dependencies. Can be used multiple times (default: mypy, mypy-extensions, tomli, typing-extensions)
   -x PACKAGE, --extra-excluded-package PACKAGE
