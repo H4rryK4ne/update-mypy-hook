@@ -65,13 +65,21 @@ def validate_package(package: str) -> str:
 def valid_file(path_str: str) -> Path:
     path = Path(path_str)
     if not path.is_file():
-        raise ArgumentTypeError(f"{path_str} is not a file")
+        raise ArgumentTypeError(f"{path.resolve()} is not a file")
+
+    return path
+
+
+def valid_dir(path_str: str) -> Path:
+    path = Path(path_str)
+    if not path.is_dir():
+        raise ArgumentTypeError(f"{path.resolve()} is not a directory")
 
     return path
 
 
 def get_dependencies(
-    groups: Sequence[str], excluded_packages: Sequence[str], pyproject_toml_path: Optional[Path] = None
+    groups: Sequence[str], excluded_packages: Sequence[str], project_path: Optional[Path] = None
 ) -> list[str]:
     parameter = [
         "uv",
@@ -86,10 +94,8 @@ def get_dependencies(
     ]
     parameter.extend([f"--group={group}" for group in groups])
     parameter.extend([f"--no-emit-package={package}" for package in excluded_packages])
-    if pyproject_toml_path:
-        parameter.append(f"--config-file={pyproject_toml_path}")
 
-    result = subprocess.run(parameter, capture_output=True, text=True)
+    result = subprocess.run(parameter, capture_output=True, text=True, cwd=project_path)
     if result.returncode != 0:
         raise RuntimeError(result.stderr)
 
@@ -111,9 +117,9 @@ def update_mypy_hook(
     groups: Sequence[str],
     excluded_packages: Sequence[str],
     yaml_config: YamlConfig,
-    pyproject_toml_path: Optional[Path] = None,
+    project_path: Optional[Path] = None,
 ) -> None:
-    deps = get_dependencies(groups=groups, excluded_packages=excluded_packages, pyproject_toml_path=pyproject_toml_path)
+    deps = get_dependencies(groups=groups, excluded_packages=excluded_packages, project_path=project_path)
     config = yaml.safe_load(pre_commit_config_path.read_text())
     pre_commit_config_path.write_text(
         yaml.dump(
@@ -147,9 +153,9 @@ def main() -> None:
     )
     parser.add_argument(
         "-p",
-        "--pyproject-path",
-        type=valid_file,
-        help="Path to pyproject.toml. Only needed if not in project root.",
+        "--project-path",
+        type=valid_dir,
+        help="Path to python project. Only needed if not in project root.",
     )
     parser.add_argument(
         "--excluded-package",
@@ -226,7 +232,7 @@ def main() -> None:
             groups=groups,
             excluded_packages=excluded_packages,
             yaml_config=yaml_config,
-            pyproject_toml_path=args.pyproject_path,
+            project_path=args.project_path,
         )
     except RuntimeError as e:
         print(e, file=sys.stderr)
