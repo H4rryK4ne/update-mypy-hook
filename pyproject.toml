@@ -1,6 +1,6 @@
 [project]
 name = "update-mypy-hook"
-version = "0.1.0"
+version = "0.2.0"
 description = "Update the additional dependencies of mypy pre-commit hook from uv.lock"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -66,7 +66,7 @@ explicit = true
 [dependency-groups]
 dev = [
     "pre-commit>=4.2.0",
-    "ruff>=0.11.10",
+    "ruff>=0.12.0",
 ]
 mypy = [
     "mypy>=1.15.0",
