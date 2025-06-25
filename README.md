@@ -42,9 +42,9 @@ Add this to your `.pre-commit-config.yaml`
 
 ```yaml
 - repo: https://github.com/H4rryK4ne/update-mypy-hook
-  rev: 0.1.0
+  rev: v0.2.0
   hooks:
-  - id: update-dependency-mypy-hook
+  - id: update-mypy-hook
     additional_dependencies:
     - uv # if uv is not installed on every developer's system
     args:
