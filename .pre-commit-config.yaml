@@ -5,7 +5,7 @@ default_install_hook_types:
 - post-rewrite
 repos:
 - repo: .
-  rev: HEAD
+  rev: 7726a563fc36197d788c7b3272beb026dd1d0d2b  # set to current commit for interactive development
   hooks:
   - id: update-mypy-hook
 - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -44,13 +44,11 @@ repos:
   rev: v0.12.0
   hooks:
   - id: ruff-check
-    args:
-    - --fix
+    args: [--fix]
   - id: ruff-format
 - repo: https://github.com/astral-sh/uv-pre-commit
   rev: 0.7.14
   hooks:
   - id: uv-lock
   - id: uv-sync
-    args:
-    - --locked
+    args: [--locked]
