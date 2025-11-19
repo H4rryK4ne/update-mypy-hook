@@ -5,7 +5,7 @@ default_install_hook_types:
 - post-rewrite
 repos:
 - repo: .
-  rev: v0.1.0
+  rev: HEAD
   hooks:
   - id: update-mypy-hook
 - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -38,12 +38,12 @@ repos:
     - --config-file=pyproject.toml
     additional_dependencies:
     - pathspec==0.12.1
-    - pyyaml==6.0.2
-    - types-pyyaml==6.0.12.20250516
+    - ruamel-yaml==0.18.16
+    - ruamel-yaml-clib==0.2.15 ; python_full_version < '3.14' and platform_python_implementation == 'CPython'
 - repo: https://github.com/astral-sh/ruff-pre-commit
   rev: v0.12.0
   hooks:
-  - id: ruff
+  - id: ruff-check
     args:
     - --fix
   - id: ruff-format

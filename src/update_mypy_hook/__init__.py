@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Final, Optional, TypedDict
 
-import yaml
+from ruamel.yaml import YAML
 
 if sys.version_info >= (3, 11):
     from typing import NotRequired
@@ -120,15 +120,15 @@ def update_mypy_hook(
     project_path: Optional[Path] = None,
 ) -> None:
     deps = get_dependencies(groups=groups, excluded_packages=excluded_packages, project_path=project_path)
-    config = yaml.safe_load(pre_commit_config_path.read_text())
-    pre_commit_config_path.write_text(
-        yaml.dump(
-            update_additional_dependencies(config=config, deps=deps),
-            default_flow_style=yaml_config.default_flow_style,
-            sort_keys=yaml_config.sort_keys,
-            indent=yaml_config.indent,
-            width=yaml_config.width,
-        )
+    yaml = YAML(pure=True)
+    yaml.width = yaml_config.width
+    yaml.indent = yaml_config.indent
+    yaml.default_flow_style = yaml_config.default_flow_style
+    # TODO: sort_keys
+    config = yaml.load(pre_commit_config_path)
+    yaml.dump(
+        update_additional_dependencies(config=config, deps=deps),
+        pre_commit_config_path,
     )
 
 
