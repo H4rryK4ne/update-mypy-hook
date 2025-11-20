@@ -139,7 +139,7 @@ def main() -> None:
         "-g",
         "--group",
         type=validate_group,
-        default=(),
+        default=[],
         action="append",
         help=f"Dependency group to include. Can be used multiple times (default: {', '.join(DEFAULT_GROUPS)})",
         dest="groups",
