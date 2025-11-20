@@ -133,16 +133,22 @@ def update_mypy_hook(
 
 
 def main() -> None:
-    parser = ArgumentParser()
+    parser = ArgumentParser(allow_abbrev=False)
     parser.description = "Update `mypy` hook in .pre-commit-config.yml with uv.lock file. uv must be installed."
     parser.add_argument(
         "-g",
         "--group",
         type=validate_group,
+        default=(),
         action="append",
         help=f"Dependency group to include. Can be used multiple times (default: {', '.join(DEFAULT_GROUPS)})",
         dest="groups",
         metavar="GROUP",
+    )
+    parser.add_argument(
+        "--no-groups",
+        action="store_true",
+        help="Do not include any dependency groups.",
     )
     parser.add_argument(
         "-c",
@@ -202,7 +208,10 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    groups = args.groups or DEFAULT_GROUPS
+    if args.groups and args.no_groups:
+        print("--group/-g and --no-groups are mutually exclusive", file=sys.stderr)
+        sys.exit(1)
+    groups = args.groups if args.groups or args.no_groups else DEFAULT_GROUPS
     excluded_packages = args.excluded_packages or DEFAULT_EXCLUDED_PACKAGES
     extra_excluded_packages = args.extra_excluded_packages
     if extra_excluded_packages:
@@ -237,7 +246,3 @@ def main() -> None:
     except RuntimeError as e:
         print(e, file=sys.stderr)
         sys.exit(1)
-
-
-if __name__ == "__main__":
-    main()
