@@ -57,6 +57,7 @@ Add this to your `.pre-commit-config.yaml`
   -h, --help            show this help message and exit
   -g GROUP, --group GROUP
                         Dependency group to include. Can be used multiple times (default: mypy)
+  --no-groups           Do not include any dependency groups.
   -c PRE_COMMIT_CONFIG_PATH, --pre-commit-config-path PRE_COMMIT_CONFIG_PATH
                         Path to .pre-commit-config.yaml (default: .pre-commit-config.yaml)
   -p PROJECT_PATH, --project-path PROJECT_PATH
@@ -71,6 +72,4 @@ Add this to your `.pre-commit-config.yaml`
                         number of spaces to indent (default: 2)
   --yaml-default-flow-style, --no-yaml-default-flow-style
                         use default flow style (default: False)
-  --yaml-sort-keys, --no-yaml-sort-keys
-                        sort keys in yaml output (default: False)
 ```
