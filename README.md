@@ -3,10 +3,6 @@
 This script uses [`uv`](https://docs.astral.sh/uv) to update the `additional_dependencies` of the
 [mypy pre-commit hook](https://github.com/pre-commit/mirrors-mypy).
 
-> **⚠️ WARNING ⚠️**
->
-> This will rewrite your `.pre-commit-config.yaml` and you will **lose all comments**.
-
 With `uv export` it will generate a list of _all_ dependencies required to run mypy.
 By default, it assumes that an `uv` dependency group, called *mypy*, exists and contains all additional dependencies
 (besides the project dependencies) to successfully run type checking.
