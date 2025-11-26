@@ -130,7 +130,7 @@ def update_mypy_hook(
 
 
 def main() -> None:
-    parser = ArgumentParser(allow_abbrev=False)
+    parser = ArgumentParser()
     parser.description = "Update `mypy` hook in .pre-commit-config.yml with uv.lock file. uv must be installed."
     parser.add_argument(
         "-g",
