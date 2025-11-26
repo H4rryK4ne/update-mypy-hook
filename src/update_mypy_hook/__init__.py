@@ -32,7 +32,6 @@ class PreCommitConfig(TypedDict):
 DEFAULT_YAML_LINE_LENGTH: Final = 120
 DEFAULT_YAML_INDENT: Final = 2
 DEFAULT_YAML_FLOW_STYLE: Final = False
-DEFAULT_YAML_SORT_KEYS: Final = False
 DEFAULT_CONFIG_PATH: Final = Path(".pre-commit-config.yaml")
 DEFAULT_GROUPS: Final = ["mypy"]
 DEFAULT_PYPROJECT_PATH: Final = Path("pyproject.toml")
@@ -47,7 +46,6 @@ class YamlConfig:
     width: Final[int] = DEFAULT_YAML_LINE_LENGTH
     indent: Final[int] = DEFAULT_YAML_INDENT
     default_flow_style: Final[bool] = DEFAULT_YAML_FLOW_STYLE
-    sort_keys: Final[bool] = DEFAULT_YAML_SORT_KEYS
 
 
 def validate_group(group: str) -> str:
@@ -124,7 +122,6 @@ def update_mypy_hook(
     yaml.width = yaml_config.width
     yaml.indent = yaml_config.indent
     yaml.default_flow_style = yaml_config.default_flow_style
-    # TODO: sort_keys
     config = yaml.load(pre_commit_config_path)
     yaml.dump(
         update_additional_dependencies(config=config, deps=deps),
@@ -200,12 +197,6 @@ def main() -> None:
         default=DEFAULT_YAML_FLOW_STYLE,
         help="use default flow style",
     )
-    parser.add_argument(
-        "--yaml-sort-keys",
-        action=BooleanOptionalAction,
-        default=DEFAULT_YAML_SORT_KEYS,
-        help="sort keys in yaml output",
-    )
     args = parser.parse_args()
 
     if args.groups and args.no_groups:
@@ -232,7 +223,6 @@ def main() -> None:
         width=args.yaml_width,
         indent=args.yaml_indent,
         default_flow_style=args.yaml_default_flow_style,
-        sort_keys=args.yaml_sort_keys,
     )
 
     try:
