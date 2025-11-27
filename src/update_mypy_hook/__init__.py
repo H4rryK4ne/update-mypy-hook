@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Final, Optional, TypedDict
 
-import yaml
+from ruamel.yaml import YAML
 
 if sys.version_info >= (3, 11):
     from typing import NotRequired
@@ -32,7 +32,6 @@ class PreCommitConfig(TypedDict):
 DEFAULT_YAML_LINE_LENGTH: Final = 120
 DEFAULT_YAML_INDENT: Final = 2
 DEFAULT_YAML_FLOW_STYLE: Final = False
-DEFAULT_YAML_SORT_KEYS: Final = False
 DEFAULT_CONFIG_PATH: Final = Path(".pre-commit-config.yaml")
 DEFAULT_GROUPS: Final = ["mypy"]
 DEFAULT_PYPROJECT_PATH: Final = Path("pyproject.toml")
@@ -47,7 +46,6 @@ class YamlConfig:
     width: Final[int] = DEFAULT_YAML_LINE_LENGTH
     indent: Final[int] = DEFAULT_YAML_INDENT
     default_flow_style: Final[bool] = DEFAULT_YAML_FLOW_STYLE
-    sort_keys: Final[bool] = DEFAULT_YAML_SORT_KEYS
 
 
 def validate_group(group: str) -> str:
@@ -120,15 +118,14 @@ def update_mypy_hook(
     project_path: Optional[Path] = None,
 ) -> None:
     deps = get_dependencies(groups=groups, excluded_packages=excluded_packages, project_path=project_path)
-    config = yaml.safe_load(pre_commit_config_path.read_text())
-    pre_commit_config_path.write_text(
-        yaml.dump(
-            update_additional_dependencies(config=config, deps=deps),
-            default_flow_style=yaml_config.default_flow_style,
-            sort_keys=yaml_config.sort_keys,
-            indent=yaml_config.indent,
-            width=yaml_config.width,
-        )
+    yaml = YAML(pure=True)
+    yaml.width = yaml_config.width
+    yaml.indent = yaml_config.indent
+    yaml.default_flow_style = yaml_config.default_flow_style
+    config = yaml.load(pre_commit_config_path)
+    yaml.dump(
+        update_additional_dependencies(config=config, deps=deps),
+        pre_commit_config_path,
     )
 
 
@@ -139,10 +136,16 @@ def main() -> None:
         "-g",
         "--group",
         type=validate_group,
+        default=[],
         action="append",
         help=f"Dependency group to include. Can be used multiple times (default: {', '.join(DEFAULT_GROUPS)})",
         dest="groups",
         metavar="GROUP",
+    )
+    parser.add_argument(
+        "--no-groups",
+        action="store_true",
+        help="Do not include any dependency groups.",
     )
     parser.add_argument(
         "-c",
@@ -194,15 +197,12 @@ def main() -> None:
         default=DEFAULT_YAML_FLOW_STYLE,
         help="use default flow style",
     )
-    parser.add_argument(
-        "--yaml-sort-keys",
-        action=BooleanOptionalAction,
-        default=DEFAULT_YAML_SORT_KEYS,
-        help="sort keys in yaml output",
-    )
     args = parser.parse_args()
 
-    groups = args.groups or DEFAULT_GROUPS
+    if args.groups and args.no_groups:
+        print("--group/-g and --no-groups are mutually exclusive", file=sys.stderr)
+        sys.exit(1)
+    groups = args.groups if args.groups or args.no_groups else DEFAULT_GROUPS
     excluded_packages = args.excluded_packages or DEFAULT_EXCLUDED_PACKAGES
     extra_excluded_packages = args.extra_excluded_packages
     if extra_excluded_packages:
@@ -223,7 +223,6 @@ def main() -> None:
         width=args.yaml_width,
         indent=args.yaml_indent,
         default_flow_style=args.yaml_default_flow_style,
-        sort_keys=args.yaml_sort_keys,
     )
 
     try:
@@ -237,7 +236,3 @@ def main() -> None:
     except RuntimeError as e:
         print(e, file=sys.stderr)
         sys.exit(1)
-
-
-if __name__ == "__main__":
-    main()
