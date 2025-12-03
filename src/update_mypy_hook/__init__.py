@@ -1,5 +1,4 @@
 import re
-import shutil
 import subprocess
 import sys
 from argparse import ArgumentParser, ArgumentTypeError, BooleanOptionalAction
@@ -8,6 +7,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Final, Optional, TypedDict
 
+import uv
 from ruamel.yaml import YAML
 
 if sys.version_info >= (3, 11):
@@ -80,7 +80,7 @@ def get_dependencies(
     groups: Sequence[str], excluded_packages: Sequence[str], project_path: Optional[Path] = None
 ) -> list[str]:
     parameter = [
-        "uv",
+        uv.find_uv_bin(),
         "export",
         "--no-emit-project",
         "--no-editable",
@@ -208,12 +208,7 @@ def main() -> None:
     if extra_excluded_packages:
         excluded_packages.extend(args.extra_excluded_packages)
 
-    if shutil.which("uv") is None:
-        print("uv not found", file=sys.stderr)
-        print("Please install uv and try again.", file=sys.stderr)
-        sys.exit(1)
-
-    result = subprocess.run(["uv", "--version"], capture_output=True, text=True, check=True)
+    result = subprocess.run([uv.find_uv_bin(), "--version"], capture_output=True, text=True, check=True)
     major, minor, patch = tuple(map(int, result.stdout.split()[1].split(".")))
     if major == 0 and minor < 7:
         print("version of uv needs to >= 0.7.0", file=sys.stderr)
