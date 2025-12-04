@@ -5,11 +5,11 @@ default_install_hook_types:
 - post-rewrite
 repos:
 - repo: .
-  rev: 7726a563fc36197d788c7b3272beb026dd1d0d2b  # set to current commit for interactive development
+  rev: 36345d189fc664bc6d78212c2b2eeafc3b84ffe9  # set to current commit for interactive development
   hooks:
   - id: update-mypy-hook
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v5.0.0
+  rev: v6.0.0
   hooks:
   - id: check-added-large-files
     args:
@@ -30,28 +30,35 @@ repos:
   - id: check-added-large-files
   - id: check-merge-conflict
 - repo: https://github.com/pre-commit/mirrors-mypy
-  rev: v1.16.1
+  rev: v1.19.0
   hooks:
   - id: mypy
     verbose: true
     args:
     - --config-file=pyproject.toml
     additional_dependencies:
+    - librt==0.6.3
     - pathspec==0.12.1
     - ruamel-yaml==0.18.16
     - ruamel-yaml-clib==0.2.15 ; python_full_version < '3.14' and platform_python_implementation == 'CPython'
-    - uv==0.7.14
+    - uv==0.9.15
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.12.0
+  rev: v0.14.7
   hooks:
   - id: ruff-check
     args:
     - --fix
   - id: ruff-format
 - repo: https://github.com/astral-sh/uv-pre-commit
-  rev: 0.7.14
+  rev: 0.9.15
   hooks:
   - id: uv-lock
   - id: uv-sync
     args:
     - --locked
+  - id: uv-export
+    args:
+    - --no-hashes
+    - --no-editable
+    - --no-header
+    - -o=requirements.txt
