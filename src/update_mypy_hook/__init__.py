@@ -122,11 +122,12 @@ def update_mypy_hook(
     yaml.width = yaml_config.width
     yaml.indent = yaml_config.indent
     yaml.default_flow_style = yaml_config.default_flow_style
-    config = yaml.load(pre_commit_config_path)
-    yaml.dump(
-        update_additional_dependencies(config=config, deps=deps),
-        pre_commit_config_path,
-    )
+
+    with pre_commit_config_path.open() as fp:
+        config = yaml.load(fp)
+
+    with pre_commit_config_path.open(mode="w") as fp:
+        yaml.dump(update_additional_dependencies(config=config, deps=deps), fp)
 
 
 def main() -> None:
@@ -220,6 +221,7 @@ def main() -> None:
         default_flow_style=args.yaml_default_flow_style,
     )
 
+    print(args, yaml_config)
     try:
         update_mypy_hook(
             pre_commit_config_path=args.pre_commit_config_path,
