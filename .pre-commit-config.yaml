@@ -5,7 +5,7 @@ default_install_hook_types:
 - post-rewrite
 repos:
 - repo: .
-  rev: 7726a563fc36197d788c7b3272beb026dd1d0d2b  # set to current commit for interactive development
+  rev: 36345d189fc664bc6d78212c2b2eeafc3b84ffe9  # set to current commit for interactive development
   hooks:
   - id: update-mypy-hook
 - repo: https://github.com/pre-commit/pre-commit-hooks
