@@ -3,10 +3,6 @@
 This script uses [`uv`](https://docs.astral.sh/uv) to update the `additional_dependencies` of the
 [mypy pre-commit hook](https://github.com/pre-commit/mirrors-mypy).
 
-> **⚠️ WARNING ⚠️**
->
-> This will rewrite your `.pre-commit-config.yaml` and you will **lose all comments**.
-
 With `uv export` it will generate a list of _all_ dependencies required to run mypy.
 By default, it assumes that an `uv` dependency group, called *mypy*, exists and contains all additional dependencies
 (besides the project dependencies) to successfully run type checking.
@@ -42,9 +38,9 @@ Add this to your `.pre-commit-config.yaml`
 
 ```yaml
 - repo: https://github.com/H4rryK4ne/update-mypy-hook
-  rev: 0.1.0
+  rev: v0.2.0
   hooks:
-  - id: update-dependency-mypy-hook
+  - id: update-mypy-hook
     additional_dependencies:
     - uv # if uv is not installed on every developer's system
     args:
@@ -57,6 +53,7 @@ Add this to your `.pre-commit-config.yaml`
   -h, --help            show this help message and exit
   -g GROUP, --group GROUP
                         Dependency group to include. Can be used multiple times (default: mypy)
+  --no-groups           Do not include any dependency groups.
   -c PRE_COMMIT_CONFIG_PATH, --pre-commit-config-path PRE_COMMIT_CONFIG_PATH
                         Path to .pre-commit-config.yaml (default: .pre-commit-config.yaml)
   -p PROJECT_PATH, --project-path PROJECT_PATH
@@ -71,6 +68,4 @@ Add this to your `.pre-commit-config.yaml`
                         number of spaces to indent (default: 2)
   --yaml-default-flow-style, --no-yaml-default-flow-style
                         use default flow style (default: False)
-  --yaml-sort-keys, --no-yaml-sort-keys
-                        sort keys in yaml output (default: False)
 ```
