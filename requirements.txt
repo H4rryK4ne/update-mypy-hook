@@ -9,7 +9,7 @@ identify==2.6.15
     # via pre-commit
 librt==0.6.3
     # via mypy
-mypy==1.19.0
+mypy==1.19.1
 mypy-extensions==1.1.0
     # via mypy
 nodeenv==1.9.1
