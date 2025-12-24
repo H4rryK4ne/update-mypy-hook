@@ -18,7 +18,7 @@ pathspec==0.12.1
     # via mypy
 platformdirs==4.5.0
     # via virtualenv
-pre-commit==4.5.0
+pre-commit==4.5.1
 pyyaml==6.0.3
     # via pre-commit
 ruamel-yaml==0.18.16
