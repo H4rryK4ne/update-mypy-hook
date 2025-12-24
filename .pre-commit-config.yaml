@@ -57,8 +57,17 @@ repos:
     args:
     - --locked
   - id: uv-export
+    alias: uv-export-prod
     args:
+    - --no-default-groups
     - --no-hashes
     - --no-editable
     - --no-header
     - -o=requirements.txt
+  - id: uv-export
+    alias: uv-export-dev
+    args:
+    - --no-hashes
+    - --no-editable
+    - --no-header
+    - -o=requirements.dev
