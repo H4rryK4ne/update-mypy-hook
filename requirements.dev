@@ -3,37 +3,41 @@ cfgv==3.5.0
     # via pre-commit
 distlib==0.4.0
     # via virtualenv
-filelock==3.20.1
-    # via virtualenv
-identify==2.6.15
+filelock==3.25.2
+    # via
+    #   python-discovery
+    #   virtualenv
+identify==2.6.18
     # via pre-commit
-librt==0.7.4 ; platform_python_implementation != 'PyPy'
+librt==0.9.0 ; platform_python_implementation != 'PyPy'
     # via mypy
-mypy==1.19.1
+mypy==1.20.1
 mypy-extensions==1.1.0
     # via mypy
 nodeenv==1.10.0
     # via pre-commit
-pathspec==0.12.1
+pathspec==1.0.4
     # via mypy
-platformdirs==4.5.1
-    # via virtualenv
+platformdirs==4.9.6
+    # via
+    #   python-discovery
+    #   virtualenv
 pre-commit==4.5.1
+python-discovery==1.2.2
+    # via virtualenv
 pyyaml==6.0.3
     # via pre-commit
-ruamel-yaml==0.18.17
+ruamel-yaml==0.19.1
     # via update-mypy-hook
-ruamel-yaml-clib==0.2.15 ; python_full_version < '3.15' and platform_python_implementation == 'CPython'
-    # via ruamel-yaml
-ruff==0.14.10
-tomli==2.3.0 ; python_full_version < '3.11'
+ruff==0.15.10
+tomli==2.4.1 ; python_full_version < '3.11'
     # via mypy
 typing-extensions==4.15.0
     # via
     #   mypy
     #   update-mypy-hook
     #   virtualenv
-uv==0.9.18
+uv==0.11.6
     # via update-mypy-hook
-virtualenv==20.35.4
+virtualenv==21.2.3
     # via pre-commit

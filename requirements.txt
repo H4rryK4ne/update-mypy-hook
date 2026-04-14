@@ -1,9 +1,7 @@
 .
-ruamel-yaml==0.18.17
+ruamel-yaml==0.19.1
     # via update-mypy-hook
-ruamel-yaml-clib==0.2.15 ; python_full_version < '3.15' and platform_python_implementation == 'CPython'
-    # via ruamel-yaml
 typing-extensions==4.15.0 ; python_full_version < '3.11'
     # via update-mypy-hook
-uv==0.9.18
+uv==0.11.6
     # via update-mypy-hook
