@@ -30,27 +30,26 @@ repos:
   - id: check-added-large-files
   - id: check-merge-conflict
 - repo: https://github.com/pre-commit/mirrors-mypy
-  rev: v1.19.1
+  rev: v1.20.1
   hooks:
   - id: mypy
     verbose: true
     args:
     - --config-file=pyproject.toml
     additional_dependencies:
-    - librt==0.6.3
-    - pathspec==0.12.1
-    - ruamel-yaml==0.18.16
-    - ruamel-yaml-clib==0.2.15 ; python_full_version < '3.14' and platform_python_implementation == 'CPython'
-    - uv==0.9.15
+    - librt==0.9.0 ; platform_python_implementation != 'PyPy'
+    - pathspec==1.0.4
+    - ruamel-yaml==0.19.1
+    - uv==0.11.6
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.14.10
+  rev: v0.15.10
   hooks:
   - id: ruff-check
     args:
     - --fix
   - id: ruff-format
 - repo: https://github.com/astral-sh/uv-pre-commit
-  rev: 0.9.18
+  rev: 0.11.6
   hooks:
   - id: uv-lock
   - id: uv-sync
