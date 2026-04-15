@@ -8,22 +8,13 @@ By default, it assumes that an `uv` dependency group, called *mypy*, exists and 
 (besides the project dependencies) to successfully run type checking.
 The group(s) may only contain the direct dependencies. Transitive dependencies are derived by `uv` automatically.
 
-The dependency group(s) can be overwritten by `-g/--group` option.
+The dependency group(s) can be overwritten by `-g/--group` or `--no-groups` option.
 
 ## Installation
 
-If you have installed `uv` on your machine or is already part of your dependencies you can run
-```shell
-pip install update-mypy-hook
-```
-or with uv
+Run
 ```shell
 uv add update-mypy-hook --group dev
-```
-
-If `uv` is not part of your setup, use the extra
-```shell
-pip install update-mypy-hook[uv]
 ```
 
 ## Using update-mypy-hook
@@ -38,11 +29,9 @@ Add this to your `.pre-commit-config.yaml`
 
 ```yaml
 - repo: https://github.com/H4rryK4ne/update-mypy-hook
-  rev: v0.2.0
+  rev: v0.3.0
   hooks:
   - id: update-mypy-hook
-    additional_dependencies:
-    - uv # if uv is not installed on every developer's system
     args:
     - --extra-excluded-package=some_package
     - --extra-excluded-package=some_other_package
