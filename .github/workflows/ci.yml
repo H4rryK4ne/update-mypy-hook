@@ -1,7 +1,7 @@
 on: push
 
 env:
-  UV_VERSION: 0.7.8
+  UV_VERSION: 0.11.6
 
 jobs:
   lint:
@@ -114,6 +114,7 @@ jobs:
         files: |
           dist/*.whl
           dist/*.tar.gz
+        target_commitish: master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -126,7 +127,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://pypi.org/p/update-mypy-hook  # Replace <package-name> with your PyPI project name
+      url: https://pypi.org/p/update-mypy-hook
     permissions:
       id-token: write  # IMPORTANT: mandatory for trusted publishing
 
