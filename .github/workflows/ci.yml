@@ -111,9 +111,10 @@ jobs:
       with:
         tag_name: v${{ needs.build.outputs.version }}
         name: Release v${{ needs.build.outputs.version }}
+        working_directory: dist
         files: |
-          dist/*.whl
-          dist/*.tar.gz
+          *.whl
+          *.tar.gz
         target_commitish: master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
