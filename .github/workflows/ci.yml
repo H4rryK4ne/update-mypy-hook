@@ -1,7 +1,7 @@
 on: push
 
 env:
-  UV_VERSION: 0.11.6
+  UV_VERSION: 0.11.18
 
 jobs:
   lint:
