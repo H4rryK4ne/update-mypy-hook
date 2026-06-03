@@ -37,10 +37,11 @@ repos:
     args:
     - --config-file=pyproject.toml
     additional_dependencies:
-    - librt==0.9.0 ; platform_python_implementation != 'PyPy'
-    - pathspec==1.0.4
+    - ast-serialize==0.5.0
+    - librt==0.11.0 ; platform_python_implementation != 'PyPy'
+    - pathspec==1.1.1
     - ruamel-yaml==0.19.1
-    - uv==0.11.6
+    - uv==0.11.18
 - repo: https://github.com/astral-sh/ruff-pre-commit
   rev: v0.15.10
   hooks:

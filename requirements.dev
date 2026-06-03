@@ -1,35 +1,37 @@
 .
+ast-serialize==0.5.0
+    # via mypy
 cfgv==3.5.0
     # via pre-commit
-distlib==0.4.0
+distlib==0.4.1
     # via virtualenv
-filelock==3.25.2
+filelock==3.29.1
     # via
     #   python-discovery
     #   virtualenv
-identify==2.6.18
+identify==2.6.19
     # via pre-commit
-librt==0.9.0 ; platform_python_implementation != 'PyPy'
+librt==0.11.0 ; platform_python_implementation != 'PyPy'
     # via mypy
-mypy==1.20.1
+mypy==2.1.0
 mypy-extensions==1.1.0
     # via mypy
 nodeenv==1.10.0
     # via pre-commit
-pathspec==1.0.4
+pathspec==1.1.1
     # via mypy
-platformdirs==4.9.6
+platformdirs==4.10.0
     # via
     #   python-discovery
     #   virtualenv
-pre-commit==4.5.1
-python-discovery==1.2.2
+pre-commit==4.6.0
+python-discovery==1.4.0
     # via virtualenv
 pyyaml==6.0.3
     # via pre-commit
 ruamel-yaml==0.19.1
     # via update-mypy-hook
-ruff==0.15.10
+ruff==0.15.15
 tomli==2.4.1 ; python_full_version < '3.11'
     # via mypy
 typing-extensions==4.15.0
@@ -37,7 +39,7 @@ typing-extensions==4.15.0
     #   mypy
     #   update-mypy-hook
     #   virtualenv
-uv==0.11.6
+uv==0.11.18
     # via update-mypy-hook
-virtualenv==21.2.3
+virtualenv==21.4.2
     # via pre-commit

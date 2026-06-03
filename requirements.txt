@@ -3,5 +3,5 @@ ruamel-yaml==0.19.1
     # via update-mypy-hook
 typing-extensions==4.15.0 ; python_full_version < '3.11'
     # via update-mypy-hook
-uv==0.11.6
+uv==0.11.18
     # via update-mypy-hook
