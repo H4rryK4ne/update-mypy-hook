@@ -19,7 +19,7 @@ jobs:
         version: "${{ env.UV_VERSION }}"
 
     - name: "Set up Python"
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version-file: ".python-version"
 
@@ -47,7 +47,7 @@ jobs:
         version: "${{ env.UV_VERSION }}"
 
     - name: "Set up Python"
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version-file: ".python-version"
 
@@ -73,7 +73,7 @@ jobs:
       with:
         version: "${{ env.UV_VERSION }}"
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version-file: ".python-version"
     - name: Set dev version if not master
